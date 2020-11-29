@@ -10,6 +10,9 @@ def parse_command(text, name):
         return create_task(task_name, name, day)
     elif command == 'clear':
         return clear_database(name)
+    elif command == 'do':
+        task_name = ' '.join(text.split()[1:])
+        return do_task(name, task_name)
 
 def initialize_database():
     os.system('clear')
@@ -34,6 +37,7 @@ def clear_database(name):
     try:
         c.execute(f"DROP TABLE IF EXISTS {name}")
     except:
+        conn.close()
         return "there was an arror clearing the database."
     conn.commit()
     conn.close()
@@ -49,6 +53,7 @@ def create_task(task_name, name, day):
     try:
         c.execute(f"INSERT INTO {name} VALUES ('{task_name}','{start_date}','{do_date}','{end_date}',False)")
     except:
+        conn.close()
         return "there was an error adding the task to the database."
     conn.commit()
     conn.close()
@@ -85,3 +90,14 @@ def get_layout(name):
             day.append(item)
         days_list.append(day)
     return days_list
+
+def do_task(name, task_name):
+    c, conn = initialize_database()
+    try:
+        c.execute(f"UPDATE {name} SET completed=True WHERE name='{task_name}'")
+    except:
+        conn.close()
+        return "there was a problem doing a task."
+    conn.commit()
+    conn.close()
+    return True

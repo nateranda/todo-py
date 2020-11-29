@@ -1,5 +1,6 @@
-from flask import Flask, render_template, url_for, request, flash
+from flask import Flask, render_template, url_for, request, flash, redirect
 import backend
+from datetime import date
 
 app = Flask(__name__)
 
@@ -10,11 +11,9 @@ def index(name):
         response = backend.parse_command(text, name)
         if not response == True:
             return response
-        return render_template('index.html', name=name)
-    else:
-        backend.create_table(name)
-        layout = backend.get_layout(name)
-        return render_template('index.html', name=name, layout=layout)
+    backend.create_table(name)
+    layout = backend.get_layout(name)
+    return render_template('index.html', name=name, layout=layout, today=date.today())
 
 @app.route('/')
 def splash():
