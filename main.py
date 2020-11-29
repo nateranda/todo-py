@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for, request, flash, redirect
 import backend
-from datetime import date
+from datetime import datetime, date
 
 app = Flask(__name__)
 
@@ -13,16 +13,22 @@ def index(name):
         if not response == True:
             return response
     # update tasks & return template
+    backend.create_table(name)
     response = backend.update_tasks(name)
     if not response == True:
         return response
-    backend.create_table(name)
     layout = backend.get_layout(name)
     return render_template('index.html', name=name, layout=layout, today=date.today())
 
 @app.route('/')
 def splash():
     return render_template('splash.html')
+
+@app.template_filter()
+def weekday(value):
+    week = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+    obj = datetime.strptime(value, '%Y-%m-%d').date()
+    return week[obj.weekday()]
 
 if __name__ == '__main__':
     app.run(debug=True)

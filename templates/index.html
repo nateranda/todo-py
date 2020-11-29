@@ -42,8 +42,9 @@
                 {% else %}
                 <p>{{ day[i][0] }}</p>
                 {% endif %}
-                <i class="material-icons" style="font-size: 1.2em; padding-left: 3px;">reorder</i>
-                <i class="material-icons" style="font-size: 1.2em; padding-left: 3px;">close</i>
+                <a>| {{ day[i][3]|weekday }}</a>
+                <i id="reorder" class="material-icons" style="font-size: 1.2em; padding-left: 3px;">reorder</i>
+                <i id="close" class="material-icons" style="font-size: 1.2em; padding-left: 3px;">close</i>
             </div>
         </div>
         {% endfor %}
