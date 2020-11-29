@@ -19,6 +19,7 @@
         <div class='box'>
             <form action="/{{ name }}" METHOD="POST">
                 <input class='commandline' placeholder="command" type="text" name="command" style="width: 200px" autocomplete="off" autofocus>
+            </form>
         </div>
         {% for day in layout %}
         {% if day|length == 1 %}
@@ -43,8 +44,7 @@
                 <p>{{ day[i][0] }}</p>
                 {% endif %}
                 <a>| {{ day[i][3]|weekday }}</a>
-                <i id="reorder" class="material-icons" style="font-size: 1.2em; padding-left: 3px;">reorder</i>
-                <i id="close" class="material-icons" style="font-size: 1.2em; padding-left: 3px;">close</i>
+                <button><i class="material-icons" style="font-size: 1.2em;">close</i></button>
             </div>
         </div>
         {% endfor %}
