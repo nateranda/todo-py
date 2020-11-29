@@ -13,6 +13,13 @@ def parse_command(text, name):
     elif command == 'do':
         task_name = ' '.join(text.split()[1:])
         return do_task(name, task_name)
+    elif command == 'remove':
+        task_name = ' '.join(text.split()[1:])
+        return remove_task(name, task_name)
+    elif command == 'move':
+        day = text.split()[-1]
+        task_name = ' '.join(text.split()[1:-1])
+        return move_task(name, task_name, day)
 
 def initialize_database():
     os.system('clear')
@@ -98,6 +105,43 @@ def do_task(name, task_name):
     except:
         conn.close()
         return "there was a problem doing a task."
+    conn.commit()
+    conn.close()
+    return True
+
+def remove_task(name, task_name):
+    c, conn = initialize_database()
+    try:
+        c.execute(f"DELETE FROM {name} WHERE name='{task_name}'")
+    except:
+        conn.close()
+        return "there was a problem removing a task."
+    conn.commit()
+    conn.close()
+    return True
+
+def move_task(name, task_name, day):
+    c, conn = initialize_database()
+    do_date = parse_day(day)
+    if do_date == "invalid":
+        return "invalid date."
+    try:
+        c.execute(f"UPDATE {name} SET do_date='{do_date}' WHERE name='{task_name}'")
+    except:
+        conn.close()
+        return "there was a problem moving a task."
+    conn.commit()
+    conn.close()
+    return True
+
+def update_tasks(name):
+    c, conn = initialize_database()
+    do_date = date.today()
+    try:
+        c.execute(f"UPDATE {name} SET do_date='{do_date}' WHERE do_date < '{do_date}'")
+    except:
+        conn.close()
+        return "there was a problem updating tasks."
     conn.commit()
     conn.close()
     return True

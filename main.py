@@ -6,11 +6,16 @@ app = Flask(__name__)
 
 @app.route('/<name>', methods=['POST', 'GET'])
 def index(name):
+    # process post request
     if request.method == 'POST':
         text = request.form['command']
         response = backend.parse_command(text, name)
         if not response == True:
             return response
+    # update tasks & return template
+    response = backend.update_tasks(name)
+    if not response == True:
+        return response
     backend.create_table(name)
     layout = backend.get_layout(name)
     return render_template('index.html', name=name, layout=layout, today=date.today())
