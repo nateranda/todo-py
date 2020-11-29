@@ -69,3 +69,19 @@ def parse_day(day):
     while d.weekday() != end_date:
         d += timedelta(1)
     return d
+
+def get_layout(name):
+    d = date.today()
+    c, conn = initialize_database()
+    days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+    days_list = []
+    for i in range(7):
+        day = []
+        current_day = days[(d.weekday() + i) % 7]
+        current_day_date = d + timedelta(i)
+        day.append(current_day)
+        items_list = c.execute(f"SELECT * FROM {name} WHERE do_date = '{current_day_date}'")
+        for item in items_list:
+            day.append(item)
+        days_list.append(day)
+    return days_list

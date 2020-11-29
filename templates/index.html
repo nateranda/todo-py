@@ -20,16 +20,20 @@
             <form action="/{{ name }}" METHOD="POST">
                 <input class='commandline' placeholder="command" type="text" name="command" style="width: 200px" autocomplete="off" autofocus>
         </div>
+        {% for day in layout %}
         <div class='box'>
-            <h2>monday</h2>
+            <h2>{{ day[0] }}</h2>
         </div>
+        {% for i in range(1, day|length) %}
         <div class='box'>
             <div class='item' draggable='true'>
-                <p>english rhetorical analysis</p>
+                <p>{{ day[i][0] }}</p>
                 <i class="material-icons" style="font-size: 1.2em; padding-left: 3px;">reorder</i>
                 <i class="material-icons" style="font-size: 1.2em; padding-left: 3px;">close</i>
             </div>
         </div>
+        {% endfor %}
+        {% endfor %}
     </div>
 </body>
 

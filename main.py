@@ -10,11 +10,11 @@ def index(name):
         response = backend.parse_command(text, name)
         if not response == True:
             return response
-        backend.create_table(name)
         return render_template('index.html', name=name)
     else:
         backend.create_table(name)
-        return render_template('index.html', name=name)
+        layout = backend.get_layout(name)
+        return render_template('index.html', name=name, layout=layout)
 
 @app.route('/')
 def splash():
