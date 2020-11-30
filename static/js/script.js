@@ -1,13 +1,16 @@
-var id;
+var task_id;
+var element_id;
 
-function allowDrop(event){
-    event.preventDefault();
+function dragOver(event){
+    event.preventDefault()
+    element_id = event.target.id;
 }
 
 function dragStart(event){
-    id = event.target.id;
+    task_id = event.target.id;
 }
 
 function dragEnd(event){
-    event.target.append(document.getElementById(id))
+    console.log(task_id);
+    console.log(element_id);
 }
