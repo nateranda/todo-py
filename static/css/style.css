@@ -3,23 +3,28 @@
 body {
     font-family: 'Montserrat', sans-serif;
 }
+
 h1 {
     font-size: 30px;
     padding-bottom:6px;
 }
+
 h2 {
     font-size: 24px;
     padding-top: 10px;
     padding-bottom: 5px;
 }
+
 p:hover {
     text-decoration: line-through;
     cursor: pointer;
 }
+
 a {
     padding-left: 4px;
     cursor: default;
 }
+
 button {
 	background: none;
 	color: inherit;
@@ -31,21 +36,26 @@ button {
     outline: inherit;
     height: -5px;
 }
+
 form {
     display: flex;
     align-items: center;
 }
+
 .container {
     margin: 20px;
     flex-direction: column;
 }
+
 .box {
     display: flex;
     align-items: center;
 }
+
 .day {
     font-size: 30px;
 }
+
 .commandline {
     background: transparent;
     border: 0;
@@ -54,6 +64,7 @@ form {
     width: 20%;
     font-family: 'Roboto Mono', monospace;
 }
+
 .item {
     display: flex;
     text-align: center;
@@ -62,4 +73,8 @@ form {
     padding: 7px;
     margin-right: 5px;
     margin-bottom: 5px;
+}
+
+.hover {
+    opacity: 100%;
 }
