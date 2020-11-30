@@ -8,10 +8,21 @@ app = Flask(__name__)
 def index(name):
     # process post request
     if request.method == 'POST':
-        text = request.form['command']
-        response = backend.parse_command(text, name)
-        if not response == True:
-            return response
+        if "command" in request.form:
+            text = request.form['command']
+            response = backend.parse_command(text, name)
+            if not response == True:
+                return response
+        elif "remove" in request.form:
+            text = "remove " + request.form['remove']
+            response = backend.parse_command(text, name)
+            if not response == True:
+                return response
+        elif "do" in request.form:
+            text = "do " + request.form['do']
+            response = backend.parse_command(text, name)
+            if not response == True:
+                return response
     # update tasks & return template
     backend.create_table(name)
     response = backend.update_tasks(name)

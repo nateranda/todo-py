@@ -38,13 +38,15 @@
             {% else %}
             <div class='item' draggable='true'>
             {% endif %}
-                {% if day[i][4] == True %}
-                <p style="text-decoration: line-through">{{ day[i][0] }}</p>
-                {% else %}
-                <p>{{ day[i][0] }}</p>
-                {% endif %}
-                <a>| {{ day[i][3]|weekday }}</a>
-                <button><i class="material-icons" style="font-size: 1.2em;">close</i></button>
+                <form action="/{{ name }}" METHOD="POST">
+                    {% if day[i][4] == True %}
+                    <p style="text-decoration: line-through">{{ day[i][0] }}</p>
+                    {% else %}
+                    <button type="submit" name="do" value="{{ day[i][0] }}"><p>{{ day[i][0] }}</p></button>
+                    {% endif %}
+                    <a>| {{ day[i][3]|weekday }}</a>
+                    <button type="submit" name="remove" value="{{ day[i][0] }}" style="height: 20px; padding-left: 3px;"><i class="material-icons" style="font-size: 1.4em;">close</i></button>
+                </form>
             </div>
         </div>
         {% endfor %}
