@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="static/css/reset.css">
-    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/style-dark.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}"></link>
     <title>todo|{{ name }}</title>
@@ -28,7 +28,7 @@
         <div class='box'>
             <h2 id="{{ day[0] }}" ondragover='dragOver(event)' ondrop='dragEnd(event)'
             {% if day|length == 1 %}
-            style="color: rgb(80, 78, 78)">
+            class='day-none'>
             {% else %}
             >
             {% endif %}
