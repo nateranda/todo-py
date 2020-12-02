@@ -11,6 +11,17 @@ function dragStart(event){
 }
 
 function dragEnd(event){
-    console.log(task_id);
-    console.log(element_id);
+    var data = {
+        'task': task_id,
+        'element': element_id,
+    }
+    
+    $.ajax({
+        url: window.location.href + "/move",
+        type: 'POST',
+        data: JSON.stringify(data),
+    })
+    .done(function(result){
+        console.log(result)
+    })
 }

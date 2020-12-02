@@ -23,7 +23,32 @@ def index(name):
             response = backend.parse_command(text, name)
             if not response == True:
                 return response
+        elif "move" in request.form:
+            data = request.form['move']
+            data_split = data.split(",,")
+            text = "move " + data_split[0] + data_split[1][:3]
+            response = backend.parse_command(text, name)
+            if not response == True:
+                return response
     # update tasks & return template
+    backend.create_table(name)
+    response = backend.update_tasks(name)
+    if not response == True:
+        return response
+    layout = backend.get_layout(name)
+    return render_template('index.html', name=name, layout=layout, today=date.today())
+
+
+@app.route('/<name>/move', methods=['POST'])
+def move(name):
+    print(request)
+    data = request.get_json()
+    task = data["task"]
+    element = data["element"]
+    text = f"move {task} {element}"
+    response = backend.parse_command(text, name)
+    if not response == True:
+        return response
     backend.create_table(name)
     response = backend.update_tasks(name)
     if not response == True:
