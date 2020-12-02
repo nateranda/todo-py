@@ -12,16 +12,20 @@ function dragStart(event){
 
 function dragEnd(event){
     var data = {
-        'task': task_id,
-        'element': element_id,
-    }
+        task: task_id,
+        element: element_id,
+    };
     
-    $.ajax({
-        url: window.location.href + "/move",
-        type: 'POST',
-        data: JSON.stringify(data),
+    fetch(`${window.location.href}/move`, {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(data),
+        cache: "no-cache",
+        headers: new Headers({
+            "content-type": "application/json"
+        }),
     })
-    .done(function(result){
-        console.log(result)
+    .then(function(){
+        window.location = window.location.href
     })
 }
